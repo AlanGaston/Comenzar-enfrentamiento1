@@ -1,17 +1,10 @@
-/******************************************************************************
-
-Welcome to GDB Online.
-GDB online is an online compiler and debugger tool for C, C++, Python, Java, PHP, Ruby, Perl,
-C#, VB, Swift, Pascal, Fortran, Haskell, Objective-C, Assembly, HTML, CSS, JS, SQLite, Prolog.
-Code, Compile, Run and Debug online from anywhere in world.
-
-**************************************************************/
- 
 #include <stdio.h>  
 #include <stdbool.h>
 
 
-
+#define CONF_BAJA 'b'
+#define CONF_MEDIA 'm'
+#define CONF_ALTA 'a'
 
 
 void comenzar_enfrentamiento(){
@@ -139,18 +132,15 @@ float  recibir_fuerza_psiquica ( int nivel_animo, char nivel_confianza){
     float mult_conf_baja=0.7F;
     float mult_conf_media=1.3F;
     float mult_conf_alta=3.7F;
-    char conf_baja;
-    char conf_media;
-    char conf_alta;
-    float fuerza_psiquica=nivel_animo * multiplicador;
+    float fuerza_psiquica; 
     
     switch(nivel_confianza){ 
         
-        case 'conf_baja':
+        case CONF_BAJA:
             multiplicador= mult_conf_baja;
             break;
             
-        case 'conf_media':
+        case CONF_MEDIA:
              multiplicador= mult_conf_media;
             break;
             
@@ -159,6 +149,8 @@ float  recibir_fuerza_psiquica ( int nivel_animo, char nivel_confianza){
     
     }    
     
+    fuerza_psiquica = nivel_animo * multiplicador;
+    
     return fuerza_psiquica;
 }
 
@@ -166,18 +158,44 @@ float  recibir_fuerza_psiquica ( int nivel_animo, char nivel_confianza){
     
 int main(){ 
     
-    float fuerza_psiquica=recibir_fuerza_psiquica(nivel_animo, nivel_confianza);
+    int nivel_animo= 0; 
+    char nivel_confianza= 'z'; 
     
     comenzar_enfrentamiento();
     
-    recibir_animo();
-    verificar_animo_recib(animo_recibido);
+    nivel_animo = recibir_animo();
+    //verificar_animo_recib(animo_recibido);
     
-    recibir_confianza();
-    verificar_nivel_confianza_recib (confianza_recibida);
+    nivel_confianza = recibir_confianza();
+    //verificar_nivel_confianza_recib (confianza_recibida);
+    
+    float fuerza_psiquica=recibir_fuerza_psiquica(nivel_animo, nivel_confianza);
+    
+    printf ("fuerza calculada %f", fuerza_psiquica); 
+    
+    if(fuerza_psiquica < 65){
+        
+        printf ("\nResultado desconocido\n");
+        printf ("\nDesaparicion de enfrentamiento\n");
+        
+    }else if((fuerza_psiquica > 65) && fuerza_psiquica < 67){
+       
+        printf ("\nResultado positivo\n");
+        printf ("\nEleven quedo debil, despues del enfrentamiento\n");
+        
+    }else{ 
+      (fuerza_psiquica > 67) && (fuerza_psiquica < 370);
+        
+        printf ("\nResultado positivo\n");
+        printf ("\nEleven logra vencer al demogorgon por completo\n"); 
+        
+    }    
     
     return 0; 
+
 }
+
+
 
 
 
